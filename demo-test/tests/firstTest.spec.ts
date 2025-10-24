@@ -51,7 +51,7 @@ test('locators finding with parent', async ({page}) => {
     await page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', {name: "Email"}).click();
 });
 
-test('reusing the locators', async ({page}) => {
+test('reusing the locatorssss', async ({page}) => {
     const basicForm = page.locator('nb-card', {hasText: "Basic form"});
     const emailField = basicForm.getByRole('textbox', {name: "Email"});
 
