@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
    await page.goto('http://localhost:4200/');
@@ -45,4 +45,20 @@ test('User facing locators', async ({page}) => {
     await page.getByText('Using the Grid').click();
     // await page.getByTitle('IoT Dashboard').click();
     await page.getByTestId('SignIn').click();
+});
+
+test('locators finding with parent', async ({page}) => {
+    await page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', {name: "Email"}).click();
+});
+
+test('reusing the locators', async ({page}) => {
+    const basicForm = page.locator('nb-card', {hasText: "Basic form"});
+    const emailField = basicForm.getByRole('textbox', {name: "Email"});
+
+    await emailField.fill("test@test.com");
+    await basicForm.getByRole('textbox', {name: "Password"}).fill("Welcome123");
+    await basicForm.locator('nb-checkbox').click();
+    await basicForm.getByRole('button');
+
+    await expect(emailField).toHaveValue("test@test.com");
 });
