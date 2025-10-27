@@ -1,4 +1,4 @@
-import { test, expect } from "playwright/test";
+import { expect, test } from "@playwright/test";
 import { NavigationPage } from "../page-objects/navigationPage";
 
 test.beforeEach(async ({ page }) => {
@@ -8,4 +8,8 @@ test.beforeEach(async ({ page }) => {
 test("navigate to form page", async ({ page }) => {
   const navigateTo = new NavigationPage(page);
   await navigateTo.formLayoutsPage();
+  await navigateTo.smartTablePage();
+  await navigateTo.datePickerPage();
+  await navigateTo.toastrPage();
+  await navigateTo.toolTipPage();
 });
