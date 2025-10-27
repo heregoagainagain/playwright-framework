@@ -109,3 +109,16 @@ test("lists and dropdowns", async ({ page }) => {
   const header = page.locator("nb-layout-header");
   await expect(header).toHaveCSS("background-color", "rgb(50, 50, 89)");
 });
+
+test("tool tips", async ({ page }) => {
+  await page.getByText("Modal & Overlays").click();
+  await page.getByText("Tooltip").click();
+
+  const toolTipCard = page.locator("nb-card", {
+    hasText: "Tooltip Placements",
+  });
+
+  await toolTipCard.getByRole("button", { name: "TOP" }).hover();
+  const toolTip = await page.locator("nb-tooltip").textContent();
+  expect(toolTip).toEqual("This is a tooltip");
+});
